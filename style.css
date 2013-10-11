@@ -1,0 +1,31 @@
+.HOME {
+	color: #F90;
+	text-decoration: none;
+}
+
+.AWAY {
+	color: #06C;
+	text-decoration: none;
+}
+
+.map-container {
+	float: left;
+	width: 960px;
+	height: 500px; 
+	background-image: url('court.png');
+	background-repeat: no-repeat;
+}
+
+.right-nav {
+	float: left; 
+	border: 1px solid #CCC; 
+	height: 500px;
+	width: 100px;
+}
+
+.player-cell {
+	text-align: center;
+	font-family: Arial;
+	height: 24px;
+	border-bottom: 1px solid #CCC;
+}

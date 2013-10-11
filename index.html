@@ -1,0 +1,49 @@
+<html>
+<head>
+	<title>bob</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div id="heatmap" class="map-container"></div>
+	<div id="rightNav" class="right-nav"></div>
+
+	<script type="text/javascript" src="js/heatmap.js"></script>
+	<script type="text/javascript" src="js/jquery-2.0.3.js"></script>
+	<script type="text/javascript" src="js/observer.js"></script>
+	<script type="text/javascript">
+		var data = new GameData();
+		$(data).on("LOAD_COMPLETE", next);
+		data.load("data/cbg-basketball.json");
+
+		var heatmap = h337.create({
+		        element: document.getElementById("heatmap"),
+		        radius: 30,
+		        opacity: 50
+	    	});
+
+		var observer;
+
+		function next(event) {
+			observer = new Observer();
+			observer.setData(data);
+
+			showPlayerLabels();
+		}
+
+		function showPlayerLabels() {
+			for (var playerID in data.players) {
+				var player = data.players[playerID];
+				$("#rightNav").append(
+					"<div class='player-cell'><a href='javascript: void(0)' onClick='showPlayerHeatMap(" + player.getID() + ")' class='" + player.getTeam() + "'>" + player.getID() + "</a></div>"
+					);
+			}
+		}
+
+		function showPlayerHeatMap(playerID) {
+			var d = observer.getPlayerHeatMapData(playerID);
+			heatmap.store.setDataSet({"max": 75, "data": d});
+		}
+	</script>
+</body>
+</html>
